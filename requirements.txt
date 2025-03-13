@@ -3,3 +3,6 @@ pandas
 networkx
 scikit-learn
 dill
+notebook
+jupyterlab
+matplotlib 
