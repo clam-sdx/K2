@@ -63,6 +63,54 @@ Prospectors' dependecies are very light, only requiring the following popular/ma
 
 This work was originally implemented in Python 3.10. Given light dependencies, we anticipate fairly seemless support for future Python versions. 
 
+## uv setup
+
+Install `uv` with one of:
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh
+wget -qO- https://astral.sh/uv/install.sh | sh
+```
+
+If `which -a uv` returns nothing, then the "shadowed commands" warning can be ignored.
+
+If `echo $SHELL` returns `/bin/bash` or `/bin/zsh`, use: `source $HOME/.local/bin/env` 
+
+Install a specific version of python
+```
+uv python install 3.12
+```
+
+Use that python version in a virtual environment
+```
+uv venv .venv --python 3.12
+```
+
+Activate that virtual environment
+if `echo $SHELL` returns `/bin/bash` or `/bin/zsh`, use: 
+```
+source .venv/bin/activate
+```
+
+Install packages/dependencies 
+```
+uv pip install -r requirements.txt
+```
+
+let jupyter know which ipython kernel has all these dependencies
+```
+uv run python -m ipykernel install --user --name k2_env --display-name "Python (k2_env)"
+
+```
+
+## download dataset
+
+```
+mkdir notebook_datasets
+cd notebook_datasets
+curl -L -o wikisection_dataset_json.tar.gz https://github.com/sebastianarnold/WikiSection/raw/master/wikisection_dataset_json.tar.gz
+tar -xvzf wikisection_dataset_json.tar.gz
+```
+
 
 ## Future development
 We plan to make a more official repo release in the coming weeks and months. At this time, our priority is to get this software into the hands of researchers applying feature attribution to large data with large models. Looking forward, we anticipate the following quality of life improvements:

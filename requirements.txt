@@ -6,3 +6,6 @@ dill
 notebook
 jupyterlab
 matplotlib 
+sentence-transformers
+ipykernel
+ipywidgets
