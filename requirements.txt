@@ -9,3 +9,4 @@ matplotlib
 sentence-transformers
 ipykernel
 ipywidgets
+datasets 
