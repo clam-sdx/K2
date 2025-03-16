@@ -337,25 +337,32 @@ def convert_text2graph(Z):
     G.graph.update({'array_size': (l)})
     G.graph.update({'d': d})
 
-    origin_flag = False
+    # insert vertices
+    origin_flag = False # immediate toggled to true after first vertex is inserted
     for i in range(l):
         if origin_flag == False:
             G.graph.update({'origin': (i)})
             origin_flag = True
+
+        # convert i-th row of Z to shape (1, d) 
+        # store in double precision (float64) for numerical stability.
         embed = Z[i,:].reshape(1, -1).astype('double')
+        # i is node indexpos=i is (sequential position index)
         G.add_node(i, pos=i, emb=embed)
         
+    # insert edges
     nodelist = list(G.nodes())
     for node in nodelist:
         i = G.nodes[node]["pos"] # same as "node"
+        # iterate over neighboring indices (di) 
         for di in range(i-2, i+3):
             if di == i:
-                continue
+                continue # skip self-node 
             if di < 0 or di >= l:
-                continue
-            G.add_edge(node, di, weight=1)
+                continue  # stay within valid index limits [0, l-1]
+            G.add_edge(node, di, weight=1) # add edge between node & di 
 
-    G.graph.update({'pos_dict': None})
+    G.graph.update({'pos_dict': None}) # Adds a 'pos_dict' key to the graph metadata and sets it to None
     return G
 
 def convert_arr2graph_gt(gt, G):
